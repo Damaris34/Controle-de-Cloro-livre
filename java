@@ -46,4 +46,3 @@ function gerarPDFComDados(dataRegistro, saidaTratamento, cozinha, producao, admi
 
     html2pdf().from(content).set(opt).save();
 }
-
