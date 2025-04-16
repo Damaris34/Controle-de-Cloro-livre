@@ -1,43 +1,50 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Cloro-Livre</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Controle de Cloro-Livre</h1>
-        <form id="cloroForm">
-            <label for="dataRegistro">Data de Registro:</label>
-            <input type="date" id="dataRegistro" name="dataRegistro" required><br><br>
+function gerarPDF() {
+    const form = document.getElementById('cloroForm');
+    const dataRegistro = form.dataRegistro.value;
+    const pontosLocalizacao = form.pontosLocalizacao.value;
+    const saidaTratamento = form.saidaTratamento.value;
+    const cozinha = form.cozinha.value;
+    const producao = form.producao.value;
+    const administrativo = form.administrativo.value;
+    const recebimento = form.recebimento.value;
+    const fotos = form.fotos.files;
 
-            <label for="pontosLocalizacao">Pontos de Localização:</label>
-            <input type="text" id="pontosLocalizacao" name="pontosLocalizacao" required><br><br>
+    let fotosHTML = '';
+    for (let i = 0; i < fotos.length; i++) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            fotosHTML += `<img src="${e.target.result}" style="width:100px;height:100px;margin:5px;">`;
+            if (i === fotos.length - 1) {
+                gerarPDFComDados(dataRegistro, pontosLocalizacao, saidaTratamento, cozinha, producao, administrativo, recebimento, fotosHTML);
+            }
+        };
+        reader.readAsDataURL(fotos[i]);
+    }
 
-            <label for="saidaTratamento">Saída de Tratamento:</label>
-            <input type="text" id="saidaTratamento" name="saidaTratamento" required><br><br>
+    if (fotos.length === 0) {
+        gerarPDFComDados(dataRegistro, pontosLocalizacao, saidaTratamento, cozinha, producao, administrativo, recebimento, fotosHTML);
+    }
+}
 
-            <label for="cozinha">Cozinha:</label>
-            <input type="text" id="cozinha" name="cozinha" required><br><br>
+function gerarPDFComDados(dataRegistro, pontosLocalizacao, saidaTratamento, cozinha, producao, administrativo, recebimento, fotosHTML) {
+    const content = `
+        <h1>Relatório de Cloro-Livre</h1>
+        <p><strong>Data de Registro:</strong> ${dataRegistro}</p>
+        <p><strong>Pontos de Localização:</strong> ${pontosLocalizacao}</p>
+        <p><strong>Saída de Tratamento:</strong> ${saidaTratamento}</p>
+        <p><strong>Cozinha:</strong> ${cozinha}</p>
+        <p><strong>Produção:</strong> ${producao}</p>
+        <p><strong>Administrativo:</strong> ${administrativo}</p>
+        <p><strong>Recebimento:</strong> ${recebimento}</p>
+        <div>${fotosHTML}</div>
+    `;
 
-            <label for="producao">Produção:</label>
-            <input type="text" id="producao" name="producao" required><br><br>
+    const opt = {
+        margin: 1,
+        filename: 'relatorio_cloro_livre.pdf',
+        html2canvas: {},
+        jsPDF: { format: 'a4' }
+    };
 
-            <label for="administrativo">Administrativo:</label>
-            <input type="text" id="administrativo" name="administrativo" required><br><br>
-
-            <label for="recebimento">Recebimento:</label>
-            <input type="text" id="recebimento" name="recebimento" required><br><br>
-
-            <label for="fotos">Adicionar Fotos:</label>
-            <input type="file" id="fotos" name="fotos" accept="image/*" multiple><br><br>
-
-            <button type="button" onclick="gerarPDF()">Gerar PDF</button>
-        </form>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-    <script src="scripts.js"></script>
-</body>
-</html>
+    html2pdf().from(content).set(opt).save();
+}
