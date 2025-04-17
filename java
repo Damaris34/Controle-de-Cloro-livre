@@ -1,50 +1,24 @@
-function gerarPDF() {
-    const form = document.getElementById('cloroForm');
-    const dataRegistro = form.dataRegistro.value;
-    const pontosLocalizacao = form.pontosLocalizacao.value;
-    const saidaTratamento = form.saidaTratamento.value;
-    const cozinha = form.cozinha.value;
-    const producao = form.producao.value;
-    const administrativo = form.administrativo.value;
-    const recebimento = form.recebimento.value;
-    const fotos = form.fotos.files;
+document.getElementById('estoqueForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    let fotosHTML = '';
-    for (let i = 0; i < fotos.length; i++) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            fotosHTML += `<img src="${e.target.result}" style="width:100px;height:100px;margin:5px;">`;
-            if (i === fotos.length - 1) {
-                gerarPDFComDados(dataRegistro, pontosLocalizacao, saidaTratamento, cozinha, producao, administrativo, recebimento, fotosHTML);
-            }
-        };
-        reader.readAsDataURL(fotos[i]);
-    }
+    const dataRegistro = document.getElementById('dataRegistro').value;
+    const localizacao = document.getElementById('localizacao').value;
+    const saidaTratamento = document.getElementById('saidaTratamento').value;
+    const cozinha = document.getElementById('cozinha').value;
+    const producao = document.getElementById('producao').value;
+    const administracao = document.getElementById('administracao').value;
+    const recebimento = document.getElementById('recebimento').value;
+    const foto = document.getElementById('foto').files[0];
 
-    if (fotos.length === 0) {
-        gerarPDFComDados(dataRegistro, pontosLocalizacao, saidaTratamento, cozinha, producao, administrativo, recebimento, fotosHTML);
-    }
-}
+    // Aqui você pode adicionar a lógica para salvar os dados, por exemplo, enviando para um servidor ou armazenando localmente.
+    console.log('Data de Registro:', dataRegistro);
+    console.log('Localização dos pontos:', localizacao);
+    console.log('Saída de Tratamento:', saidaTratamento);
+    console.log('Cozinha:', cozinha);
+    console.log('Produção:', producao);
+    console.log('Administração:', administracao);
+    console.log('Recebimento:', recebimento);
+    console.log('Foto:', foto);
 
-function gerarPDFComDados(dataRegistro, pontosLocalizacao, saidaTratamento, cozinha, producao, administrativo, recebimento, fotosHTML) {
-    const content = `
-        <h1>Relatório de Cloro-Livre</h1>
-        <p><strong>Data de Registro:</strong> ${dataRegistro}</p>
-        <p><strong>Pontos de Localização:</strong> ${pontosLocalizacao}</p>
-        <p><strong>Saída de Tratamento:</strong> ${saidaTratamento}</p>
-        <p><strong>Cozinha:</strong> ${cozinha}</p>
-        <p><strong>Produção:</strong> ${producao}</p>
-        <p><strong>Administrativo:</strong> ${administrativo}</p>
-        <p><strong>Recebimento:</strong> ${recebimento}</p>
-        <div>${fotosHTML}</div>
-    `;
-
-    const opt = {
-        margin: 1,
-        filename: 'relatorio_cloro_livre.pdf',
-        html2canvas: {},
-        jsPDF: { format: 'a4' }
-    };
-
-    html2pdf().from(content).set(opt).save();
-}
+    alert('Dados salvos com sucesso!');
+});
