@@ -3,16 +3,18 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    background: #fff;
+    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
 }
 
 h1 {
@@ -27,11 +29,11 @@ form {
 
 label {
     margin-top: 10px;
-    font-weight: bold;
+    color: #555;
 }
 
-input[type="text"], input[type="date"], input[type="file"] {
-    padding: 10px;
+input {
+    padding: 8px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -39,7 +41,7 @@ input[type="text"], input[type="date"], input[type="file"] {
 
 button {
     margin-top: 20px;
-    padding: 10px 20px;
+    padding: 10px;
     background-color: #28a745;
     color: #fff;
     border: none;
