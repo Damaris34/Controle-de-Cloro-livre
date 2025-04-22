@@ -1,24 +1,15 @@
-document.getElementById('estoqueForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function () {
+    // Preencha os dados dinamicamente (exemplo)
+    document.getElementById('data-registro').textContent = new Date().toLocaleDateString();
+    document.getElementById('pontos-localizacao').textContent = 'Lat: -23.5505, Long: -46.6333';
+    document.getElementById('cozinha').textContent = '10 unidades';
+    document.getElementById('producao').textContent = '20 unidades';
+    document.getElementById('administracao').textContent = '5 unidades';
+    document.getElementById('recebimento').textContent = '15 unidades';
 
-    const dataRegistro = document.getElementById('dataRegistro').value;
-    const localizacao = document.getElementById('localizacao').value;
-    const saidaTratamento = document.getElementById('saidaTratamento').value;
-    const cozinha = document.getElementById('cozinha').value;
-    const producao = document.getElementById('producao').value;
-    const administracao = document.getElementById('administracao').value;
-    const recebimento = document.getElementById('recebimento').value;
-    const foto = document.getElementById('foto').files[0];
-
-    // Aqui você pode adicionar a lógica para salvar os dados, por exemplo, enviando para um servidor ou armazenando localmente.
-    console.log('Data de Registro:', dataRegistro);
-    console.log('Localização dos pontos:', localizacao);
-    console.log('Saída de Tratamento:', saidaTratamento);
-    console.log('Cozinha:', cozinha);
-    console.log('Produção:', producao);
-    console.log('Administração:', administracao);
-    console.log('Recebimento:', recebimento);
-    console.log('Foto:', foto);
-
-    alert('Dados salvos com sucesso!');
+    // Função para gerar PDF
+    document.getElementById('download-pdf').addEventListener('click', function () {
+        const content = document.getElementById('content');
+        html2pdf().from(content).save('relatorio.pdf');
+    });
 });
