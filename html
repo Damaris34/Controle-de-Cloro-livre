@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Localização</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Localização</h1>
+    </header>
+    <main>
+        <section id="form-section">
+            <form id="data-form">
+                <label for="date">Data:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="photo">Foto:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+        <section id="locations-section">
+            <h2>Pontos de Localização</h2>
+            <ul>
+                <li>Saída de Tratamento</li>
+                <li>Cozinha</li>
+                <li>Produção</li>
+                <li>Adm</li>
+                <li>Recebimento</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Sistema de Localização</p>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
 
