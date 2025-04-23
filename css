@@ -12,11 +12,26 @@ header, footer {
     padding: 1em 0;
 }
 
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 1em;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
 main {
     padding: 2em;
 }
 
-#form-section, #locations-section {
+section {
     margin-bottom: 2em;
 }
 
@@ -29,20 +44,11 @@ label {
     margin-bottom: 0.5em;
 }
 
-input, button {
+input, textarea, button {
     margin-bottom: 1em;
     padding: 0.5em;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+canvas {
+    border: 1px solid #ccc;
 }
-
-li {
-    background: #f4f4f4;
-    margin: 0.5em 0;
-    padding: 0.5em;
-    border-radius: 4px;
-}
-
